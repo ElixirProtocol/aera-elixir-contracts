@@ -107,8 +107,8 @@ contract sTokenAuxiliary is
     //////////////////////////////////////////////////////////////*/
 
     /// @notice Approve asset to spend
-    function approveAsset(address spender, uint256 amount) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        IERC20(asset()).approve(spender, amount);
+    function approveAsset(uint256 amount) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        IERC20(asset()).approve(mintingContract, amount);
     }
 
     /// @notice Sets delegated signer on minting contract
