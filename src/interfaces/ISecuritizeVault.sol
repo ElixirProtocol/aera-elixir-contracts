@@ -18,14 +18,13 @@
 pragma solidity ^0.8.20;
 
 interface ISecuritizeVault {
-
     // Events
     event LiquidationOpenToPublic(address indexed sender, bool open);
     event OperatorAdded(address indexed operator);
     event OperatorRevoked(address indexed operator);
     event LiquidatorAdded(address indexed liquidator);
     event LiquidatorRevoked(address indexed liquidator);
-    event Liquidate(address indexed sender, uint assets, uint256 shares);
+    event Liquidate(address indexed sender, uint256 assets, uint256 shares);
     event AdminChanged(address indexed admin);
 
     error LiquidationNotOpenToPublic();
@@ -60,7 +59,6 @@ interface ISecuritizeVault {
      * @param _newAdmin The address of the new admin.
      */
     function changeAdmin(address _newAdmin) external;
-
 
     /**
      * @dev Checks if an account has the admin role.
@@ -170,9 +168,8 @@ interface ISecuritizeVault {
     function liquidate(uint256 shares, uint256 minOutputAmount) external;
 
     /**
-    * @dev returns how much value per share can be liquidated
-    * @return share value in $
-    */
+     * @dev returns how much value per share can be liquidated
+     * @return share value in $
+     */
     function getShareValue() external view returns (uint256);
-
 }
