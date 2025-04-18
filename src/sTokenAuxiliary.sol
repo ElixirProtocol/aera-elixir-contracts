@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.21;
+pragma solidity 0.8.25;
 
 import {IERC20} from "openzeppelin/token/ERC20/IERC20.sol";
 import {SafeERC20} from "openzeppelin/token/ERC20/utils/SafeERC20.sol";
 import {IAeraV2Oracle} from "src/interfaces/IAeraV2Oracle.sol";
 import {IDelegateSigner} from "src/interfaces/IDelegateSigner.sol";
+import {SafeCast} from "openzeppelin/utils/math/SafeCast.sol";
 
 import {ERC20Upgradeable} from "openzeppelin-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import {ERC4626Upgradeable} from "openzeppelin-upgradeable/token/ERC20/extensions/ERC4626Upgradeable.sol";
@@ -22,6 +23,7 @@ contract sTokenAuxiliary is
     IAeraV2Oracle
 {
     using SafeERC20 for IERC20;
+    using SafeCast for uint256;
 
     /*//////////////////////////////////////////////////////////////
                                 CONSTANTS
@@ -47,16 +49,17 @@ contract sTokenAuxiliary is
     //////////////////////////////////////////////////////////////*/
 
     /// @notice No constructor in upgradable contracts, so initialized with this function.
-    /// @param _asset The address of the deUSD token.
-    /// @param _initialRewarder The address of the initial rewarder.
+    /// @param _asset The address of the asset token.
     /// @param _owner The address of the admin role.
+    /// @param _mintingContract The address of the minting contract.
+    /// @param _name The name of this token
+    /// @param _symbol The symbol of this token
     function initialize(
         IERC20 _asset,
-        address _initialRewarder,
         address _owner,
+        address _mintingContract,
         string memory _name,
-        string memory _symbol,
-        address _mintingContract
+        string memory _symbol
     ) public initializer {
         __UUPSUpgradeable_init();
         __AccessControl_init();
@@ -64,7 +67,7 @@ contract sTokenAuxiliary is
         __ERC20_init(_name, _symbol);
         __ERC4626_init(_asset);
 
-        if (_owner == address(0) || _initialRewarder == address(0) || address(_asset) == address(0)) {
+        if (_owner == address(0) || address(_asset) == address(0)) {
             revert InvalidZeroAddress();
         }
 
@@ -88,8 +91,7 @@ contract sTokenAuxiliary is
         returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)
     {
         roundId = 0;
-        // TODO:
-        answer = 0;
+        answer = totalAssets().toInt256();
 
         // slither-disable-next-line incorrect-equality
         if (answer == 0) {

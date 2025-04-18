@@ -9,7 +9,6 @@ fs_permissions = [
 ] # Gives permission to read files for enviroment files.
 fail_on_revert = false # Not fail the test if the contract reverts
 evm_version = "cancun"
-
 [fuzz]
 runs = 100 # The number of times to run the fuzzing tests
 
