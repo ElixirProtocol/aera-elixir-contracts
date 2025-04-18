@@ -106,6 +106,11 @@ contract sTokenAuxiliary is
                             EXTERNAL FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
+    /// @notice Approve asset to spend
+    function approveAsset(address spender, uint256 amount) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        IERC20(asset()).approve(spender, amount);
+    }
+
     /// @notice Sets delegated signer on minting contract
     function setDelegatedSigner(address _delegateTo) external onlyRole(DEFAULT_ADMIN_ROLE) {
         IDelegateSigner(mintingContract).setDelegatedSigner(_delegateTo);
