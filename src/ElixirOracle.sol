@@ -12,7 +12,7 @@ import {Ownable} from "openzeppelin/access/Ownable.sol";
 /// @title ElixirOracle
 /// @notice Oracle to wrap deUSD for minting and redeeming through API
 contract ElixirOracle is IElixirOracle, AbstractBalanceOracle, Executor {
-    /// ERRORS
+    /// ERRORS ///
     error AeraPeriphery__deusdAddressIsZeroAddress();
     error AeraPeriphery__deusdMintingContractAddressIsZeroAddress();
     error AeraPeriphery__CallerIsNotVault();
@@ -74,21 +74,14 @@ contract ElixirOracle is IElixirOracle, AbstractBalanceOracle, Executor {
         }
         _;
     }
-    /// FUNCTIONS
-    /// @inheritdoc IElixirOracle
 
+    /// FUNCTIONS ///
+
+    /// @inheritdoc IElixirOracle
     function transferAndApprove(uint256 amount) external onlyVault {
         _deusd.transferFrom(_vault, address(this), amount);
         _deusd.approve(_mintingContract, amount);
     }
-
-    /// INTERNAL FUNCTIONS ///
-
-    /// @inheritdoc Executor
-    function _checkOperations(Operation[] calldata operations) internal view override onlyVaultOwner {}
-
-    /// @inheritdoc Executor
-    function _checkOperation(Operation calldata operation) internal view override {}
 
     /// @inheritdoc AbstractBalanceOracle
     function decimals() external view override returns (uint8) {
@@ -110,4 +103,12 @@ contract ElixirOracle is IElixirOracle, AbstractBalanceOracle, Executor {
     function _getBalance() internal view override returns (uint256 balance) {
         balance = _deusd.balanceOf(address(this));
     }
+
+    /// INTERNAL FUNCTIONS ///
+
+    /// @inheritdoc Executor
+    function _checkOperations(Operation[] calldata operations) internal view override onlyVaultOwner {}
+
+    /// @inheritdoc Executor
+    function _checkOperation(Operation calldata operation) internal view override {}
 }
