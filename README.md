@@ -1,6 +1,6 @@
 <img align="right" width="150" height="150" top="100" style="border-radius:99%" src="https://i.imgur.com/H5aZQMA.jpg">
 
-# Auxiliary Contracts for deUSD Minting with sTOKENS • [![CI](https://github.com/ElixirProtocol/stoken-auxiliary-contracts/actions/workflows/test.yml/badge.svg)](https://github.com/ElixirProtocol/stoken-auxiliary-contracts/actions/workflows/test.yml)
+# Aera Auxiliary Contracts for deUSD Minting• [![CI](https://github.com/ElixirProtocol/stoken-auxiliary-contracts/actions/workflows/test.yml/badge.svg)](https://github.com/ElixirProtocol/stoken-auxiliary-contracts/actions/workflows/test.yml)
 
 ## Background
 
@@ -13,8 +13,8 @@ You will need a copy of [Foundry](https://github.com/foundry-rs/foundry) install
 To build the contracts:
 
 ```sh
-git clone https://github.com/ElixirProtocol/stoken-auxiliary-contracts.git
-cd stoken-auxiliary-contracts
+git clone https://github.com/ElixirProtocol/aera-elixir-contracts.git
+cd aera-elixir-contracts
 forge install
 forge build
 ```

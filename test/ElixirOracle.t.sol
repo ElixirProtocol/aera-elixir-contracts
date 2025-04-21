@@ -15,12 +15,12 @@ contract ElixirOracleTest is Test {
     address public mintingContract;
 
     function setUp() public {
-        // owner = vm.addr(0xA11CE);
-        // vaultAddress = vm.addr(0x0001);
-        // mintingContract = vm.addr(0x0002);
-        // deusdAddress = vm.addr(0x0003);
-        //
-        // elixirOracle = ElixirOracle(vaultAddress, deusdAddress, mintingContract);
+        owner = vm.addr(0xA11CE);
+        vaultAddress = vm.addr(0x0001);
+        deusdAddress = vm.addr(0x0002);
+        mintingContract = vm.addr(0x0003);
+
+        elixirOracle = new ElixirOracle(vaultAddress, deusdAddress, mintingContract);
     }
 
     function testDefault() public {}
